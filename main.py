@@ -1,10 +1,14 @@
 import uuid
 
-from flask import Flask, request, jsonify, abort
-
+from flask import Flask, request, jsonify, abort, session
+from flask_session import Session
 # initialisiere Flask-Server
 app = Flask(__name__)
 app.debug = True
+app.secret_key = '123456789'
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 # create unique id for lists, entries
 todo_list_1_id = '1318d3d1-d979-47e1-a225-dab1751dbe75'
@@ -47,22 +51,54 @@ def index():
 
 # /todo-list/{list_id}
 @app.route('/todo-list/{list_id}', methods = ['GET'])
-def getToDoList():
-    return request.args
+def getToDoList(list_id):
+    list_item = None
+    for i in todo_lists:
+        if i['id'] == list_id:
+            list_item = i
+            break
+        if not list_item:
+            abort(404)
+        if request.method == 'GET':
+            print('Returning todo list...')
+            return jsonify([i for i in todos if i['list'] == list_id])
 
 @app.route('/todo-list/{list_id}', methods = ['DELETE'])
-def deleteToDoList():
-    return request.args
+def deleteToDoList(list_id):
+    list_item = None
+    for i in todo_lists:
+        if i['id'] == list_id:
+            list_item = i
+            break
+        if not list_item:
+            abort(404)
+        if request.method == 'DELETE':
+            print('Deleting todo list...')
+            todo_lists.remove(list_item)
+            return '', 200
 
 @app.route('/todo-list/{list_id}', methods = ['PATCH'])
-def updateToDoList():
-    return request.args
+def updateToDoList(list_id):
+    list_item = None
+    # for i in todo_lists:
+    #     if i['id'] == list_id:
+    #         list_item = i
+    #         break
+    #     if not list_item:
+    #         abort(404)
+    #     if request.method == 'PATCH':
+    #         print('Updating todo list...')
+    #         todo_lists.
+            
 
 
 # /todo-list/
 @app.route('/todo-list/', methods = ['GET'])
 def getAllToDoLists():
-    return todos
+    if todo_lists != '':
+        return todo_lists
+    else :
+        abort(404)
 
 @app.route('/todo-list/', methods = ['POST'])
 def postNewList():
@@ -92,4 +128,4 @@ def deleteListEntry():
 
 if __name__ == '__main__':
  # starte Flask-Server
- app.run(host='0.0.0.0', port=5000)
+ app.run(host='0.0.0.0', port=5001)

@@ -4,7 +4,7 @@ info:
     description: Title
     version: 1.0.0
 servers:
-    - url: 'http://127.0.0.1:5000'
+    - url: 'http://127.0.0.1:5001'
 paths:
   /todo-list/{list_id}:
     get:
@@ -70,6 +70,13 @@ paths:
 
   /todo-list/{list_id}/entry:
     post:
+      parameters:
+          - name: list_id
+            in: path
+            required: true
+            schema: 
+              type: string
+              format: uuid
       requestBody:
           "$ref": "#/components/requestBodies/ToDoEntryRequestBody" 
       responses:
@@ -84,7 +91,7 @@ paths:
   /entry/{entry_id}:
     patch:
       parameters:
-        - name: list_id
+        - name: entry_id
           in: path
           required: true
           schema: 
@@ -99,7 +106,7 @@ paths:
           "$ref": "#/components/responses/500"
     delete:
       parameters:
-        - name: list_id
+        - name: entry_id
           in: path
           required: true
           schema: 
