@@ -1,243 +1,243 @@
-openapi: 3.0.0
-info:
-    title: Title
-    description: Title
-    version: 1.0.0
-servers:
-    - url: 'http://127.0.0.1:5001'
-paths:
-  /todo-list/{list_id}:
-    get:
-      parameters:
-        - name: list_id
-          in: path
-          required: true
-          schema: 
-            type: string
-            format: uuid
-      responses:
-        '200':
-          "$ref": "#/components/responses/200"
-        '500':
-          "$ref": "#/components/responses/500"
-    delete:
-      parameters:
-        - name: list_id
-          in: path
-          required: true
-          schema: 
-            type: string
-            format: uuid
-      responses:
-        '200':
-          "$ref": "#/components/responses/200"
-        '500':
-          "$ref": "#/components/responses/500"
-    patch:
-      parameters:
-        - name: list_id
-          in: path
-          required: true
-          schema: 
-            type: string
-            format: uuid
-      requestBody:
-        "$ref": "#/components/requestBodies/ToDoListRequestBody" 
-      responses:
-        '200':
-          "$ref": "#/components/responses/200"
-        '500':
-          "$ref": "#/components/responses/500"
-
-  /todo-list/:
+  openapi: 3.0.0
+  info:
+      title: Title
+      description: Title
+      version: 1.0.0
+  servers:
+      - url: 'http://127.0.0.1:5001'
+  paths:
+    /todo-list/{list_id}:
       get:
-        responses:
-          '200':
-            "$ref": "#/components/responses/ToDoListCollection"
-          '500':
-            "$ref": "#/components/responses/500"
-      post:
-        requestBody:
-          "$ref": "#/components/requestBodies/ToDoListRequestBody" 
-        responses:
-          '200':
-            "$ref": "#/components/schemas/ToDoList" 
-          '500':
-            "$ref": "#/components/responses/500"
-
-
-
-
-  /todo-list/{list_id}/entry:
-    post:
-      parameters:
+        parameters:
           - name: list_id
             in: path
             required: true
             schema: 
               type: string
               format: uuid
-      requestBody:
+        responses:
+          '200':
+            "$ref": "#/components/responses/200"
+          '500':
+            "$ref": "#/components/responses/500"
+      delete:
+        parameters:
+          - name: list_id
+            in: path
+            required: true
+            schema: 
+              type: string
+              format: uuid
+        responses:
+          '200':
+            "$ref": "#/components/responses/200"
+          '500':
+            "$ref": "#/components/responses/500"
+      patch:
+        parameters:
+          - name: list_id
+            in: path
+            required: true
+            schema: 
+              type: string
+              format: uuid
+        requestBody:
+          "$ref": "#/components/requestBodies/ToDoListRequestBody" 
+        responses:
+          '200':
+            "$ref": "#/components/responses/200"
+          '500':
+            "$ref": "#/components/responses/500"
+
+    /todo-list/:
+        get:
+          responses:
+            '200':
+              "$ref": "#/components/responses/ToDoListCollection"
+            '500':
+              "$ref": "#/components/responses/500"
+        post:
+          requestBody:
+            "$ref": "#/components/requestBodies/ToDoListRequestBody" 
+          responses:
+            '200':
+              "$ref": "#/components/schemas/ToDoList" 
+            '500':
+              "$ref": "#/components/responses/500"
+
+
+
+
+    /todo-list/{list_id}/entry:
+      post:
+        parameters:
+            - name: list_id
+              in: path
+              required: true
+              schema: 
+                type: string
+                format: uuid
+        requestBody:
+            "$ref": "#/components/requestBodies/ToDoEntryRequestBody" 
+        responses:
+          '200':
+            "$ref": "#/components/schemas/ToDoEntryRequestBody" 
+          '500':
+            "$ref": "#/components/responses/500"
+
+
+
+
+    /entry/{entry_id}:
+      patch:
+        parameters:
+          - name: entry_id
+            in: path
+            required: true
+            schema: 
+              type: string
+              format: uuid
+        requestBody:
           "$ref": "#/components/requestBodies/ToDoEntryRequestBody" 
-      responses:
-        '200':
-          "$ref": "#/components/schemas/ToDoEntryRequestBody" 
-        '500':
-          "$ref": "#/components/responses/500"
-
-
-
-
-  /entry/{entry_id}:
-    patch:
-      parameters:
-        - name: entry_id
-          in: path
-          required: true
-          schema: 
-            type: string
-            format: uuid
-      requestBody:
-        "$ref": "#/components/requestBodies/ToDoEntryRequestBody" 
-      responses:
-        '200':
-          "$ref": "#/components/responses/200"
-        '500':
-          "$ref": "#/components/responses/500"
-    delete:
-      parameters:
-        - name: entry_id
-          in: path
-          required: true
-          schema: 
-            type: string
-            format: uuid
-      responses:
-        '200':
-          "$ref": "#/components/responses/200"
-        '500':
-          "$ref": "#/components/responses/500"
-
-
-  # /post:
-  #   post:
-  #     responses:
-  #       '200':
-  #         "$ref": "#/components/responses/200"
-  #       '500':
-  #         "$ref": "#/components/responses/500"
-
-
-components:
-  schemas:
-    GeneralRequest:
-          type: object
-          properties:
-            param1: 
+        responses:
+          '200':
+            "$ref": "#/components/responses/200"
+          '500':
+            "$ref": "#/components/responses/500"
+      delete:
+        parameters:
+          - name: entry_id
+            in: path
+            required: true
+            schema: 
               type: string
-              example: any value
-            param2:
-              type: string
-              example: Hello World
-    GeneralResponse:
-      type: object
-      properties:
-        param1: 
-          type: string
-          example: param1 that was passed in the request
-        param2:
-          type: string
-          example: param2 that was passed in the request
+              format: uuid
+        responses:
+          '200':
+            "$ref": "#/components/responses/200"
+          '500':
+            "$ref": "#/components/responses/500"
+
+
+    # /post:
+    #   post:
+    #     responses:
+    #       '200':
+    #         "$ref": "#/components/responses/200"
+    #       '500':
+    #         "$ref": "#/components/responses/500"
+
+
+  components:
+    schemas:
+      GeneralRequest:
+            type: object
+            properties:
+              param1: 
+                type: string
+                example: any value
+              param2:
+                type: string
+                example: Hello World
+      GeneralResponse:
+        type: object
+        properties:
+          param1: 
+            type: string
+            example: param1 that was passed in the request
+          param2:
+            type: string
+            example: param2 that was passed in the request
 
 
 
 
 
-    ToDoList:
-      type: object
-      properties:
-        ID: 
-          type: string
-          example: ID
-        Name:
-          type: string
-          example: Name
+      ToDoList:
+        type: object
+        properties:
+          ID: 
+            type: string
+            example: ID
+          name:
+            type: string
+            example: name
 
-    ToDoListEntry:
-      type: object
-      properties:
-        ID: 
-          type: string
-          example: ID
-        Name:
-          type: string
-          example: Name
-        Description:
-          type: string
-          example: Description
-
-
-
-
-
-    ToDoListRequestBody:
-      type: object
-      properties:
-        Name:
-          type: string
-          example: Name
-
-    ToDoEntryRequestBody:
-      type: object
-      properties:
-        Name:
-          type: string
-          example: Name
-        Description:
-          type: string
-          example: Description
+      ToDoListEntry:
+        type: object
+        properties:
+          ID: 
+            type: string
+            example: ID
+          name:
+            type: string
+            example: name
+          Description:
+            type: string
+            example: Description
 
 
 
 
 
-    ToDoListCollection:
-      type: array
-      items:
-        "$ref": "#/components/schemas/ToDoListRequestBody"
+      ToDoListRequestBody:
+        type: object
+        properties:
+          name:
+            type: string
+            example: name
+
+      ToDoEntryRequestBody:
+        type: object
+        properties:
+          name:
+            type: string
+            example: name
+          Description:
+            type: string
+            example: Description
 
 
 
 
 
-  requestBodies:
-    ToDoListRequestBody:
-      content:
-        application/json:
-          schema:
-            "$ref": "#/components/schemas/ToDoListRequestBody"
-    ToDoEntryRequestBody:
-      content:
-        application/json:
-          schema:
-            "$ref": "#/components/schemas/ToDoEntryRequestBody"
+      ToDoListCollection:
+        type: array
+        items:
+          "$ref": "#/components/schemas/ToDoListRequestBody"
+
+
+
+
+
+    requestBodies:
+      ToDoListRequestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ToDoListRequestBody"
+      ToDoEntryRequestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ToDoEntryRequestBody"
+        
+
+
       
-
-
-     
-  responses:
-    200:
-      description: OK
-      content:
-        application/json:
-          schema:
-            "$ref": "#/components/schemas/GeneralResponse"
-    500:
-      description: Internal Server Error
-    
-    ToDoListCollection:
-      description: List Collection 
-      content:
-        application/json:
-          schema:
-            "$ref": "#/components/schemas/ToDoListCollection"
+    responses:
+      200:
+        description: OK
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GeneralResponse"
+      500:
+        description: Internal Server Error
+      
+      ToDoListCollection:
+        description: List Collection 
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ToDoListCollection"
